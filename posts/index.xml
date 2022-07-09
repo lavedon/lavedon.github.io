@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Luke Avedon</title>
-    <link>https://lukeavedon.com/posts/</link>
+    <link>https://lavedon.github.io/posts/</link>
     <description>Recent content in Posts on Luke Avedon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 07 Jul 2022 21:31:38 -0400</lastBuildDate><atom:link href="https://lukeavedon.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Jul 2022 21:31:38 -0400</lastBuildDate><atom:link href="https://lavedon.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My First 1</title>
-      <link>https://lukeavedon.com/2022/07/my-first-1/</link>
+      <link>https://lavedon.github.io/2022/07/my-first-1/</link>
       <pubDate>Thu, 07 Jul 2022 21:31:38 -0400</pubDate>
       
-      <guid>https://lukeavedon.com/2022/07/my-first-1/</guid>
+      <guid>https://lavedon.github.io/2022/07/my-first-1/</guid>
       <description></description>
     </item>
     
