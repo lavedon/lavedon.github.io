@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>sorting on Luke Avedon</title>
-    <link>https://lavedon.github.io/tags/sorting/</link>
+    <link>https//lavedon.github.io/tags/sorting/</link>
     <description>Recent content in sorting on Luke Avedon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 07 Jul 2022 21:31:38 -0400</lastBuildDate><atom:link href="https://lavedon.github.io/tags/sorting/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Jul 2022 21:31:38 -0400</lastBuildDate><atom:link href="https//lavedon.github.io/tags/sorting/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Introduction to Classic Sorting Algorithms: Part 1 - Bubble Sort</title>
-      <link>https://lavedon.github.io/2022/07/introduction-to-classic-sorting-algorithms-part-1-bubble-sort/</link>
+      <link>https//lavedon.github.io/2022/07/introduction-to-classic-sorting-algorithms-part-1-bubble-sort/</link>
       <pubDate>Thu, 07 Jul 2022 21:31:38 -0400</pubDate>
       
-      <guid>https://lavedon.github.io/2022/07/introduction-to-classic-sorting-algorithms-part-1-bubble-sort/</guid>
+      <guid>https//lavedon.github.io/2022/07/introduction-to-classic-sorting-algorithms-part-1-bubble-sort/</guid>
       <description>Let&amp;rsquo;s start with the simplest sort of them all: Bubble Sort.
 Bubble sort simply loops through an array. If it finds that one value is larger than the value next to it &amp;ndash; that value &amp;lsquo;bubbles&amp;rsquo; up and up and up until it finally reaches a smaller value. Then the next value bubbles up and does the exact same thing. On and on and on. Bubble Sort is not an efficient algorithm &amp;ndash; each value is usually compared to all other values.</description>
     </item>
