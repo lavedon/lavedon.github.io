@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="https://www.w3.org/2005/Atom">
   <channel>
     <title>Entity Framework on Luke Avedon</title>
-    <link>http://lavedon.github.io/tags/entity-framework/</link>
+    <link>https://lavedon.github.io/tags/entity-framework/</link>
     <description>Recent content in Entity Framework on Luke Avedon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 06 Aug 2022 18:12:10 -0400</lastBuildDate><atom:link href="http://lavedon.github.io/tags/entity-framework/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 Aug 2022 18:12:10 -0400</lastBuildDate><atom:link href="https://lavedon.github.io/tags/entity-framework/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Getting Started with EF Core: Part 2</title>
-      <link>http://lavedon.github.io/2022/08/getting-started-with-ef-core-part-2/</link>
+      <link>https://lavedon.github.io/2022/08/getting-started-with-ef-core-part-2/</link>
       <pubDate>Sat, 06 Aug 2022 18:12:10 -0400</pubDate>
       
-      <guid>http://lavedon.github.io/2022/08/getting-started-with-ef-core-part-2/</guid>
+      <guid>https://lavedon.github.io/2022/08/getting-started-with-ef-core-part-2/</guid>
       <description>https://www.youtube.com/watch?v=oSoS4ifjubo</description>
     </item>
     
     <item>
       <title>Getting Started with EF Core: Part 1</title>
-      <link>http://lavedon.github.io/2022/08/getting-started-with-ef-core-part-1/</link>
+      <link>https://lavedon.github.io/2022/08/getting-started-with-ef-core-part-1/</link>
       <pubDate>Sat, 06 Aug 2022 18:06:47 -0400</pubDate>
       
-      <guid>http://lavedon.github.io/2022/08/getting-started-with-ef-core-part-1/</guid>
+      <guid>https://lavedon.github.io/2022/08/getting-started-with-ef-core-part-1/</guid>
       <description>https://www.youtube.com/watch?v=B_W3JqdmPCw</description>
     </item>
     
