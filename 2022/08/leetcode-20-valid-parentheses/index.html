@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Leetcode 20: Valid Parentheses // Luke Avedon</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.101.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Luke Avedon" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://lavedon.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Leetcode 20: Valid Parentheses"/>
+<meta name="twitter:description" content="Leetcode 20: Valid Parentheses is a great problem.
+It is a perfect introduction to using a &lsquo;stack.&rsquo;.
+The goal is to be able to check that a string has matching opening and closing parenthesis, either parenthesis &ldquo;(&rdquo;, brackets &ldquo;{&rdquo;, or squares (square brackets?) &ldquo;[&rdquo;. i.e. &ldquo;(){}[]&rdquo; Is valid. &ldquo;(]&rdquo; is not valid as these two open and close brackets are not of the same type. &ldquo;(&rdquo; is matched by &ldquo;)&rdquo; and not &ldquo;]&rdquo;."/>
+
+    <meta property="og:title" content="Leetcode 20: Valid Parentheses" />
+<meta property="og:description" content="Leetcode 20: Valid Parentheses is a great problem.
+It is a perfect introduction to using a &lsquo;stack.&rsquo;.
+The goal is to be able to check that a string has matching opening and closing parenthesis, either parenthesis &ldquo;(&rdquo;, brackets &ldquo;{&rdquo;, or squares (square brackets?) &ldquo;[&rdquo;. i.e. &ldquo;(){}[]&rdquo; Is valid. &ldquo;(]&rdquo; is not valid as these two open and close brackets are not of the same type. &ldquo;(&rdquo; is matched by &ldquo;)&rdquo; and not &ldquo;]&rdquo;." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://lavedon.github.io/2022/08/leetcode-20-valid-parentheses/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-08T18:46:41-04:00" />
+<meta property="article:modified_time" content="2022-08-08T18:46:41-04:00" />
+
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://lavedon.github.io/"><img class="app-header-avatar" src="/headshot.jpg" alt="Luke Avedon" /></a>
+      <h1>Luke Avedon</h1>
+      <p> </p>
+      <div class="app-header-social">
+        
+          <a href="http://github.com/lavedon" target="_blank" rel="noreferrer noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>My Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="http://www.linkedin.com/in/lukeavedon/" target="_blank" rel="noreferrer noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>My LinkedIn</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Leetcode 20: Valid Parentheses</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Aug 8, 2022
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          7 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>Leetcode 20: Valid Parentheses is a great problem.</p>
+<p>It is a perfect introduction to using a &lsquo;stack.&rsquo;.</p>
+<p>The goal is to be able to check that a string has matching opening and closing parenthesis, either parenthesis &ldquo;(&rdquo;, brackets &ldquo;{&rdquo;, or squares (square brackets?) &ldquo;[&rdquo;.  i.e. &ldquo;(){}[]&rdquo; Is valid.  &ldquo;(]&rdquo; is not valid as these two open and close brackets are not of the same type.  &ldquo;(&rdquo; is matched by &ldquo;)&rdquo; and not &ldquo;]&rdquo;.</p>
+<p>Let&rsquo;s break down the problem line by line.</p>
+<p>By the by, unlike LeetCode, I will be using a static method, just because.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> IsValid(<span style="color:#66d9ef">string</span> s) {
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The first thing we can do is exit immediately if we are not given an even number of characters.  A string that should return true will always have an even number of characters. An odd number of characters indicates that one of the opened brackets is not closed. i.e. string likes &lsquo;()[])&rsquo;.  Or&hellip; that we have extra closing brackets like `(}}})</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> IsValid(<span style="color:#66d9ef">string</span> s) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (s.Length % <span style="color:#ae81ff">2</span> != <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Now before we iterate through our input string - we introduce our heroic stack!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>   Stack&lt;<span style="color:#66d9ef">char</span>&gt; stack = <span style="color:#66d9ef">new</span> Stack&lt;<span style="color:#66d9ef">char</span>&gt;();
+</span></span></code></pre></div><p>Our code so far&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> IsValid(<span style="color:#66d9ef">string</span> s) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (s.Length % <span style="color:#ae81ff">2</span> != <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>	        
+</span></span><span style="display:flex;"><span>	Stack&lt;<span style="color:#66d9ef">char</span>&gt; stack = <span style="color:#66d9ef">new</span> Stack&lt;<span style="color:#66d9ef">char</span>&gt;();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Next, let&rsquo;s take any opening parenthesis / braces and put it on top of our stack.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;(&#39;</span> || c == <span style="color:#e6db74">&#39;[&#39;</span> || c == <span style="color:#e6db74">&#39;{&#39;</span>) {
+</span></span><span style="display:flex;"><span>    stack.Push(c);
+</span></span></code></pre></div><p>Now, every time there is a &lsquo;(&rsquo; &ndash; the stack lets us know we have an open parenthesis which we need to be close.  If a bracket character is still on the stack &ndash; it is not closed yet.  Think of it like a stack of open order tickets at a diner. When the food is delivered - an open ticket is taken from on top of the stack.  The &lsquo;stack of paper&rsquo; in this case, keeps track of what is left open.</p>
+<p>Let&rsquo;s use a for each loop to iterate through each character in the string.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">char</span> c <span style="color:#66d9ef">in</span> s) {
+</span></span></code></pre></div><p>To check whether something is on the stack we <code>Peek</code> at the stack.  `Peek()&rsquo; lets us see what is on top of the stack, without actually popping (removing) anything from the stack.</p>
+<p>Finally, we have to check whether or not the stack is empty.  If we &lsquo;Peek&rsquo; at an empty stack, it will cause an error.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;)&#39;</span> &amp;&amp; stack.Count != <span style="color:#ae81ff">0</span> &amp;&amp; stack.Peek() == <span style="color:#e6db74">&#39;(&#39;</span>) {
+</span></span></code></pre></div><p>Our code so far&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> IsValid(<span style="color:#66d9ef">string</span> s) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (s.Length % <span style="color:#ae81ff">2</span> != <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        Stack&lt;<span style="color:#66d9ef">char</span>&gt; stack = <span style="color:#66d9ef">new</span> Stack&lt;<span style="color:#66d9ef">char</span>&gt;();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">char</span> c <span style="color:#66d9ef">in</span> s) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;(&#39;</span> || c == <span style="color:#e6db74">&#39;[&#39;</span> || c == <span style="color:#e6db74">&#39;{&#39;</span>) {
+</span></span><span style="display:flex;"><span>            stack.Push(c);
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;)&#39;</span> &amp;&amp; stack.Count != <span style="color:#ae81ff">0</span> &amp;&amp; stack.Peek() == <span style="color:#e6db74">&#39;(&#39;</span>) {
+</span></span></code></pre></div><p>We can then check all other closed braces against what might be on the stack, using <code>else if</code> statements (terrible style but whatevs&hellip;)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;)&#39;</span> &amp;&amp; stack.Count != <span style="color:#ae81ff">0</span> &amp;&amp; stack.Peek() == <span style="color:#e6db74">&#39;(&#39;</span>) {
+</span></span><span style="display:flex;"><span>    stack.Pop();
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;]&#39;</span> &amp;&amp; stack.Count != <span style="color:#ae81ff">0</span> &amp;&amp; stack.Peek() == <span style="color:#e6db74">&#39;[&#39;</span>) {
+</span></span><span style="display:flex;"><span>    stack.Pop();
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;}&#39;</span> &amp;&amp; stack.Count != <span style="color:#ae81ff">0</span> &amp;&amp; stack.Peek() == <span style="color:#e6db74">&#39;{&#39;</span>) {
+</span></span><span style="display:flex;"><span>    stack.Pop();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>There is something else we have to do with our stack.  We want to return false if there are too many closing braces like, <code>(}})</code>.</p>
+<p>To catch this edge case, we need a final else statement that pushes, extra closing braces onto the stack. We tell our program this: anything not an opening brace, or anything not a closing brace, with an opening brace on the stack, push to the stack.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    stack.Push(c);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Our code so far&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> IsValid(<span style="color:#66d9ef">string</span> s) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (s.Length % <span style="color:#ae81ff">2</span> != <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        Stack&lt;<span style="color:#66d9ef">char</span>&gt; stack = <span style="color:#66d9ef">new</span> Stack&lt;<span style="color:#66d9ef">char</span>&gt;();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">char</span> c <span style="color:#66d9ef">in</span> s) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;(&#39;</span> || c == <span style="color:#e6db74">&#39;[&#39;</span> || c == <span style="color:#e6db74">&#39;{&#39;</span>) {
+</span></span><span style="display:flex;"><span>            stack.Push(c);
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;)&#39;</span> &amp;&amp; stack.Count != <span style="color:#ae81ff">0</span> &amp;&amp; stack.Peek() == <span style="color:#e6db74">&#39;(&#39;</span>) {
+</span></span><span style="display:flex;"><span>            stack.Pop();
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;]&#39;</span> &amp;&amp; stack.Count != <span style="color:#ae81ff">0</span> &amp;&amp; stack.Peek() == <span style="color:#e6db74">&#39;[&#39;</span>) {
+</span></span><span style="display:flex;"><span>            stack.Pop();
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;}&#39;</span> &amp;&amp; stack.Count != <span style="color:#ae81ff">0</span> &amp;&amp; stack.Peek() == <span style="color:#e6db74">&#39;{&#39;</span>) {
+</span></span><span style="display:flex;"><span>            stack.Pop();
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            stack.Push(c);
+</span></span><span style="display:flex;"><span>        }
+</span></span></code></pre></div><p>To actually decide whether we should return <code>true</code> or <code>false</code> is simple.  If the stack is completely empty return true.  An empty stack means that every opening brace was correctly closed.</p>
+<p>If there is stuff left on the stack, that means we have some braces which were left open and not closed. It could also mean we have extra closing braces like <code>(}})</code>.</p>
+<p>Here is the final solution:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> IsValid(<span style="color:#66d9ef">string</span> s) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (s.Length % <span style="color:#ae81ff">2</span> != <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        Stack&lt;<span style="color:#66d9ef">char</span>&gt; stack = <span style="color:#66d9ef">new</span> Stack&lt;<span style="color:#66d9ef">char</span>&gt;();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">char</span> c <span style="color:#66d9ef">in</span> s) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;(&#39;</span> || c == <span style="color:#e6db74">&#39;[&#39;</span> || c == <span style="color:#e6db74">&#39;{&#39;</span>) {
+</span></span><span style="display:flex;"><span>            stack.Push(c);
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;)&#39;</span> &amp;&amp; stack.Count != <span style="color:#ae81ff">0</span> &amp;&amp; stack.Peek() == <span style="color:#e6db74">&#39;(&#39;</span>) {
+</span></span><span style="display:flex;"><span>            stack.Pop();
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;]&#39;</span> &amp;&amp; stack.Count != <span style="color:#ae81ff">0</span> &amp;&amp; stack.Peek() == <span style="color:#e6db74">&#39;[&#39;</span>) {
+</span></span><span style="display:flex;"><span>            stack.Pop();
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;}&#39;</span> &amp;&amp; stack.Count != <span style="color:#ae81ff">0</span> &amp;&amp; stack.Peek() == <span style="color:#e6db74">&#39;{&#39;</span>) {
+</span></span><span style="display:flex;"><span>            stack.Pop();
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            stack.Push(c);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (stack.Count == <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>        }   
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><h1 id="a-fancy-pants-solution-with-a-dictionary">A fancy pants solution with a dictionary</h1>
+<p>We can implement essentially the same solution, but this time, we use a dictionary tomap what opening braces go with what closing braces.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> IsValid(<span style="color:#66d9ef">string</span> s) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (s.Length % <span style="color:#ae81ff">2</span> != <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Dictionary&lt;<span style="color:#66d9ef">char</span>, <span style="color:#66d9ef">char</span>&gt; dic = <span style="color:#66d9ef">new</span> Dictionary&lt;<span style="color:#66d9ef">char</span>, <span style="color:#66d9ef">char</span>&gt;(){
+</span></span><span style="display:flex;"><span>            {<span style="color:#e6db74">&#39;(&#39;</span>,<span style="color:#e6db74">&#39;)&#39;</span>},
+</span></span><span style="display:flex;"><span>            {<span style="color:#e6db74">&#39;{&#39;</span>,<span style="color:#e6db74">&#39;}&#39;</span>},
+</span></span><span style="display:flex;"><span>            {<span style="color:#e6db74">&#39;[&#39;</span>,<span style="color:#e6db74">&#39;]&#39;</span>}
+</span></span><span style="display:flex;"><span>        };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Stack&lt;<span style="color:#66d9ef">char</span>&gt; stack = <span style="color:#66d9ef">new</span> Stack&lt;<span style="color:#66d9ef">char</span>&gt;();
+</span></span></code></pre></div><p>Now when we iterate through our string we can check opening and closing braces just by looking at the keys and values of our dictionary.</p>
+<p>We use &lsquo;ContainsKey()&rsquo; to process our opening bracket.  All opening brackets are keys and all closing brackets are values.</p>
+<p>When we iterate through our string we first check whether or not the character is a closing bracket.  A closing bracket is a value in our dictionary.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">char</span> c <span style="color:#66d9ef">in</span> s) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (dic.ContainsValue(c) {
+</span></span></code></pre></div><p>In our previous example (the <code>else if</code> one) we checked for open braces first, then closed braced.  This time, with our dictionary, we are checking for closed braces first&hellip;and then checking for open braces.</p>
+<p>If we find a closed brace, check if the stack is empty. If the stack is empty, this closed brace is an orphan brace.  Since the bracket was never opened, just return false.</p>
+<p>If the top of the stack is our closed bracket, then pop it off the stack.  We have now closed this open / closed parenthesis / bracket pair.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (dic.ContainsValue(c)) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (stack.Count == <span style="color:#ae81ff">0</span> || stack.Peek() != c) {
+</span></span><span style="display:flex;"><span>	    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>	    stack.Pop();
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>Now for our open brackets.  We don&rsquo;t have to test for keys, as we already established the value is not a key.  Therefore, we push the value to the stack.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>   stack.Push(dic[c]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Our if / else mess</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>        <span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">char</span> c <span style="color:#66d9ef">in</span> s) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;(&#39;</span> || c == <span style="color:#e6db74">&#39;[&#39;</span> || c == <span style="color:#e6db74">&#39;{&#39;</span>) {
+</span></span><span style="display:flex;"><span>            stack.Push(c);
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;)&#39;</span> &amp;&amp; stack.Count != <span style="color:#ae81ff">0</span> &amp;&amp; stack.Peek() == <span style="color:#e6db74">&#39;(&#39;</span>) {
+</span></span><span style="display:flex;"><span>            stack.Pop();
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;]&#39;</span> &amp;&amp; stack.Count != <span style="color:#ae81ff">0</span> &amp;&amp; stack.Peek() == <span style="color:#e6db74">&#39;[&#39;</span>) {
+</span></span><span style="display:flex;"><span>            stack.Pop();
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (c == <span style="color:#e6db74">&#39;}&#39;</span> &amp;&amp; stack.Count != <span style="color:#ae81ff">0</span> &amp;&amp; stack.Peek() == <span style="color:#e6db74">&#39;{&#39;</span>) {
+</span></span><span style="display:flex;"><span>            stack.Pop();
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            stack.Push(c);
+</span></span><span style="display:flex;"><span>        }
+</span></span></code></pre></div><p>Has become something that still has if / else statements, but is more neat-o.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">char</span> c <span style="color:#66d9ef">in</span> s) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (dic.ContainsValue(c)) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (stack.Count == <span style="color:#ae81ff">0</span> || stack.Peek() != c) {
+</span></span><span style="display:flex;"><span>	    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>	    stack.Pop();
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>	stack.Push(dic[c]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>We end our code in the exact same way, by checking whether or not the stack has any values left on it.  If the stack is empty we can conclude that every open bracket was closed.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (stack.Count == <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>Here is our full dictionary based solution:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">bool</span> IsValid(<span style="color:#66d9ef">string</span> s) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (s.Length % <span style="color:#ae81ff">2</span> != <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Dictionary&lt;<span style="color:#66d9ef">char</span>, <span style="color:#66d9ef">char</span>&gt; dic = <span style="color:#66d9ef">new</span> Dictionary&lt;<span style="color:#66d9ef">char</span>, <span style="color:#66d9ef">char</span>&gt;(){
+</span></span><span style="display:flex;"><span>            {<span style="color:#e6db74">&#39;(&#39;</span>,<span style="color:#e6db74">&#39;)&#39;</span>},
+</span></span><span style="display:flex;"><span>            {<span style="color:#e6db74">&#39;{&#39;</span>,<span style="color:#e6db74">&#39;}&#39;</span>},
+</span></span><span style="display:flex;"><span>            {<span style="color:#e6db74">&#39;[&#39;</span>,<span style="color:#e6db74">&#39;]&#39;</span>}
+</span></span><span style="display:flex;"><span>        };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Stack&lt;<span style="color:#66d9ef">char</span>&gt; stack = <span style="color:#66d9ef">new</span> Stack&lt;<span style="color:#66d9ef">char</span>&gt;();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">char</span> c <span style="color:#66d9ef">in</span> s) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (dic.ContainsValue(c)) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (stack.Count == <span style="color:#ae81ff">0</span> || stack.Peek() != c) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                    stack.Pop();
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                stack.Push(dic[c]);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (stack.Count == <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>ah, so elegant!</p>
+
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "myblog-johnzdzlvf" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
