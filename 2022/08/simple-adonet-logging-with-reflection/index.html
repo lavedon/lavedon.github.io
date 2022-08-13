@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Simple ADO.NET Logging with Reflection // Luke Avedon</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.101.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Luke Avedon" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://lukeavedon.com/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Simple ADO.NET Logging with Reflection"/>
+<meta name="twitter:description" content="When working with an app that does not have much of a logger, or in an environment where one is not allowed to install their own nu-get packages to set up a proper logger.
+I found this simple logger to be an ideal way to watch what SQL the application is sending over to SQL Server when working with ADO.NET. It outputs what stored procedures are being called, what the name of those procedures, what parameters are being passed (with what values), etc."/>
+
+    <meta property="og:title" content="Simple ADO.NET Logging with Reflection" />
+<meta property="og:description" content="When working with an app that does not have much of a logger, or in an environment where one is not allowed to install their own nu-get packages to set up a proper logger.
+I found this simple logger to be an ideal way to watch what SQL the application is sending over to SQL Server when working with ADO.NET. It outputs what stored procedures are being called, what the name of those procedures, what parameters are being passed (with what values), etc." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lukeavedon.com/2022/08/simple-adonet-logging-with-reflection/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-12T23:08:58-04:00" />
+<meta property="article:modified_time" content="2022-08-12T23:08:58-04:00" />
+
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://lukeavedon.com/"><img class="app-header-avatar" src="/headshot.jpg" alt="Luke Avedon" /></a>
+      <h1>Luke Avedon</h1>
+      <p> </p>
+      <div class="app-header-social">
+        
+          <a href="http://github.com/lavedon" target="_blank" rel="noreferrer noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>My Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="http://www.linkedin.com/in/lukeavedon/" target="_blank" rel="noreferrer noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>My LinkedIn</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Simple ADO.NET Logging with Reflection</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Aug 12, 2022
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>When working with an app that does not have much of a logger, or in an environment where one
+is not allowed to install their own nu-get packages to set up a proper logger.</p>
+<p>I found this simple logger to be an ideal way to watch what SQL the application is sending over to SQL Server when working with ADO.NET.  It outputs what stored procedures are being called, what the name of those procedures, what parameters are being passed (with what values), etc.</p>
+<p>It provides a fast way to look at everything going across the database connection in the Visual Studio output window.</p>
+<p>First import the diagnostics library and reflection library:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Diagnostics;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Reflection;
+</span></span></code></pre></div><p>below&hellip;.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>results.Load(sqlCommand.ExecuteReader());
+</span></span></code></pre></div><p>And above where the connection to the database is closed&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#75715e">//close the connection</span>
+</span></span><span style="display:flex;"><span>connection.Close();
+</span></span></code></pre></div><p>Place this code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>MethodBase method = MethodBase.GetCurrentMethod();
+</span></span><span style="display:flex;"><span>logQuery(sqlCommand, method);
+</span></span></code></pre></div><p>The above code simply uses reflection to grab the current method.  It &lsquo;saves&rsquo; the method as a MethodBase object.</p>
+<p>Next, it executes the <code>loqQuery</code> method we are about to create.  We pass the sqlCommand object, which contains all sorts of neat things, and the method we just grabbed.</p>
+<p>Here is the <code>loqQuery</code> method:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> logQuery(SqlCommand sqlCommand, MethodBase callingMethod)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	Trace.WriteLine(<span style="color:#e6db74">&#34;******************************&#34;</span>);
+</span></span><span style="display:flex;"><span>	Trace.WriteLine(DateTime.Now);
+</span></span><span style="display:flex;"><span>	Trace.WriteLine(<span style="color:#e6db74">&#34;SQL query was issued by this method: &#34;</span> + callingMethod.ReflectedType.Name + <span style="color:#e6db74">&#34;.&#34;</span> + callingMethod.Name);
+</span></span><span style="display:flex;"><span>	Trace.WriteLine(<span style="color:#e6db74">&#34;Called the following SQL Command: &#34;</span>);
+</span></span><span style="display:flex;"><span>	Trace.WriteLine(sqlCommand.CommandText + <span style="color:#e6db74">&#34; with &#34;</span> + sqlCommand.Parameters.Count + <span style="color:#e6db74">&#34; parameter(s).&#34;</span>);
+</span></span><span style="display:flex;"><span>	Trace.WriteLine(<span style="color:#e6db74">&#34;Parameters for: &#34;</span> + sqlCommand.CommandText + <span style="color:#e6db74">&#34;:&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">foreach</span> (SqlParameter parameter <span style="color:#66d9ef">in</span> sqlCommand.Parameters)
+</span></span><span style="display:flex;"><span>	{
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">try</span>
+</span></span><span style="display:flex;"><span>		{
+</span></span><span style="display:flex;"><span>			Trace.WriteLine(sqlCommand.CommandText + parameter.ParameterName.ToString() + <span style="color:#e6db74">&#34; has SqlDbType: &#34;</span> + parameter.SqlDbType);
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> (parameter.SqlDbType != SqlDbType.Structured)
+</span></span><span style="display:flex;"><span>			{
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">string</span>.IsNullOrEmpty(parameter.Value.ToString()) || parameter.Value == <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>				{
+</span></span><span style="display:flex;"><span>					Trace.WriteLine(parameter.ParameterName.ToString() + <span style="color:#e6db74">&#34; : Is NULL.&#34;</span>);
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>				}	
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>				{
+</span></span><span style="display:flex;"><span>					Trace.WriteLine(sqlCommand.CommandText + parameter.ParameterName.ToString() + <span style="color:#e6db74">&#34;: &#34;</span> + parameter.SqlValue.ToString() + <span style="color:#e6db74">&#34; &#34;</span>);	
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>			}	
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>			{
+</span></span><span style="display:flex;"><span>				<span style="color:#75715e">// loop through columns --</span>
+</span></span><span style="display:flex;"><span>				Trace.WriteLine(<span style="color:#e6db74">&#34;A special Structured Table was passed.&#34;</span>);
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">var</span> table = parameter.Value <span style="color:#66d9ef">as</span> DataTable;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">foreach</span> (DataColumn column <span style="color:#66d9ef">in</span> table.Columns)
+</span></span><span style="display:flex;"><span>				{
+</span></span><span style="display:flex;"><span>					Trace.WriteLine(sqlCommand.CommandText + parameter.ParameterName.ToString() + <span style="color:#e6db74">&#34; table has a column named: &#34;</span> + column.ColumnName);
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>				Trace.WriteLine(sqlCommand.CommandText + parameter.ParameterName.ToString() + <span style="color:#e6db74">&#34; has: &#34;</span> + table.Rows.Count + <span style="color:#e6db74">&#34; rows.&#34;</span>);
+</span></span><span style="display:flex;"><span>				Trace.WriteLine(<span style="color:#e6db74">&#34;The row contents are: &#34;</span>);
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">foreach</span> (DataRow row <span style="color:#66d9ef">in</span> table.Rows) 
+</span></span><span style="display:flex;"><span>				{
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">var</span> item <span style="color:#66d9ef">in</span> row.ItemArray)
+</span></span><span style="display:flex;"><span>					{
+</span></span><span style="display:flex;"><span>						Trace.WriteLine(item.ToString());	
+</span></span><span style="display:flex;"><span>					}	
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>				Trace.WriteLine(parameter.Value.ToString());
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}	
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">catch</span> (AggregateException ae)
+</span></span><span style="display:flex;"><span>		{
+</span></span><span style="display:flex;"><span>			Trace.WriteLine(<span style="color:#e6db74">&#34;One or more exceptions occurred when printing SQL parameters: &#34;</span>);
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">var</span> ex <span style="color:#66d9ef">in</span> ae.Flatten().InnerExceptions)
+</span></span><span style="display:flex;"><span>			{
+</span></span><span style="display:flex;"><span>				Trace.WriteLine(<span style="color:#e6db74">&#34;  {0}&#34;</span>, ex.Message);
+</span></span><span style="display:flex;"><span>				Trace.WriteLine(<span style="color:#e6db74">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>			}	
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	Trace.WriteLine(<span style="color:#e6db74">&#34;***********************************&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "myblog-johnzdzlvf" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

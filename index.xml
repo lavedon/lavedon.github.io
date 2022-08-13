@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Luke Avedon</title>
-    <link>http://lavedon.github.io/</link>
+    <link>https://lukeavedon.com/</link>
     <description>Recent content on Luke Avedon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 12 Aug 2022 23:08:58 -0400</lastBuildDate><atom:link href="http://lavedon.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 12 Aug 2022 23:08:58 -0400</lastBuildDate><atom:link href="https://lukeavedon.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Simple ADO.NET Logging with Reflection</title>
-      <link>http://lavedon.github.io/2022/08/simple-ado.net-logging-with-reflection/</link>
+      <link>https://lukeavedon.com/2022/08/simple-adonet-logging-with-reflection/</link>
       <pubDate>Fri, 12 Aug 2022 23:08:58 -0400</pubDate>
       
-      <guid>http://lavedon.github.io/2022/08/simple-ado.net-logging-with-reflection/</guid>
+      <guid>https://lukeavedon.com/2022/08/simple-adonet-logging-with-reflection/</guid>
       <description>When working with an app that does not have much of a logger, or in an environment where one is not allowed to install their own nu-get packages to set up a proper logger.
 I found this simple logger to be an ideal way to watch what SQL the application is sending over to SQL Server when working with ADO.NET. It outputs what stored procedures are being called, what the name of those procedures, what parameters are being passed (with what values), etc.</description>
     </item>
     
     <item>
       <title>Leetcode 20: Valid Parentheses</title>
-      <link>http://lavedon.github.io/2022/08/leetcode-20-valid-parentheses/</link>
+      <link>https://lukeavedon.com/2022/08/leetcode-20-valid-parentheses/</link>
       <pubDate>Mon, 08 Aug 2022 18:46:41 -0400</pubDate>
       
-      <guid>http://lavedon.github.io/2022/08/leetcode-20-valid-parentheses/</guid>
+      <guid>https://lukeavedon.com/2022/08/leetcode-20-valid-parentheses/</guid>
       <description>Leetcode 20: Valid Parentheses is a great problem.
 It is a perfect introduction to using a &amp;lsquo;stack.&amp;rsquo;.
 The goal is to be able to check that a string has matching opening and closing parenthesis, either parenthesis &amp;ldquo;(&amp;rdquo;, brackets &amp;ldquo;{&amp;rdquo;, or squares (square brackets?) &amp;ldquo;[&amp;rdquo;. i.e. &amp;ldquo;(){}[]&amp;rdquo; Is valid. &amp;ldquo;(]&amp;rdquo; is not valid as these two open and close brackets are not of the same type. &amp;ldquo;(&amp;rdquo; is matched by &amp;ldquo;)&amp;rdquo; and not &amp;ldquo;]&amp;rdquo;.</description>
@@ -30,28 +30,28 @@ The goal is to be able to check that a string has matching opening and closing p
     
     <item>
       <title>Getting Started with EF Core: Part 2</title>
-      <link>http://lavedon.github.io/2022/08/getting-started-with-ef-core-part-2/</link>
+      <link>https://lukeavedon.com/2022/08/getting-started-with-ef-core-part-2/</link>
       <pubDate>Sat, 06 Aug 2022 18:12:10 -0400</pubDate>
       
-      <guid>http://lavedon.github.io/2022/08/getting-started-with-ef-core-part-2/</guid>
+      <guid>https://lukeavedon.com/2022/08/getting-started-with-ef-core-part-2/</guid>
       <description>https://www.youtube.com/watch?v=oSoS4ifjubo</description>
     </item>
     
     <item>
       <title>Getting Started with EF Core: Part 1</title>
-      <link>http://lavedon.github.io/2022/08/getting-started-with-ef-core-part-1/</link>
+      <link>https://lukeavedon.com/2022/08/getting-started-with-ef-core-part-1/</link>
       <pubDate>Sat, 06 Aug 2022 18:06:47 -0400</pubDate>
       
-      <guid>http://lavedon.github.io/2022/08/getting-started-with-ef-core-part-1/</guid>
+      <guid>https://lukeavedon.com/2022/08/getting-started-with-ef-core-part-1/</guid>
       <description>https://www.youtube.com/watch?v=B_W3JqdmPCw</description>
     </item>
     
     <item>
       <title>Introduction to Classic Sorting Algorithms: Part 1 - Bubble Sort</title>
-      <link>http://lavedon.github.io/2022/07/introduction-to-classic-sorting-algorithms-part-1-bubble-sort/</link>
+      <link>https://lukeavedon.com/2022/07/introduction-to-classic-sorting-algorithms-part-1-bubble-sort/</link>
       <pubDate>Thu, 07 Jul 2022 21:31:38 -0400</pubDate>
       
-      <guid>http://lavedon.github.io/2022/07/introduction-to-classic-sorting-algorithms-part-1-bubble-sort/</guid>
+      <guid>https://lukeavedon.com/2022/07/introduction-to-classic-sorting-algorithms-part-1-bubble-sort/</guid>
       <description>Let&amp;rsquo;s start with the simplest sort of them all: Bubble Sort.
 Bubble sort simply loops through an array. If it finds that one value is larger than the value next to it &amp;ndash; that value &amp;lsquo;bubbles&amp;rsquo; up and up and up until it finally reaches a smaller value. Then the next value bubbles up and does the exact same thing. On and on and on. Bubble Sort is not an efficient algorithm &amp;ndash; each value is usually compared to all other values.</description>
     </item>
