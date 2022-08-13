@@ -2,48 +2,48 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://lukeavedon.com/</loc>
+    <loc>https://lukeavedon/</loc>
     <lastmod>2022-08-12T23:08:58-04:00</lastmod>
   </url><url>
-    <loc>https://lukeavedon.com/posts/</loc>
+    <loc>https://lukeavedon/posts/</loc>
     <lastmod>2022-08-12T23:08:58-04:00</lastmod>
   </url><url>
-    <loc>https://lukeavedon.com/2022/08/simple-adonet-logging-with-reflection/</loc>
+    <loc>https://lukeavedon/2022/08/simple-adonet-logging-with-reflection/</loc>
     <lastmod>2022-08-12T23:08:58-04:00</lastmod>
   </url><url>
-    <loc>https://lukeavedon.com/2022/08/leetcode-20-valid-parentheses/</loc>
+    <loc>https://lukeavedon/2022/08/leetcode-20-valid-parentheses/</loc>
     <lastmod>2022-08-08T18:46:41-04:00</lastmod>
   </url><url>
-    <loc>https://lukeavedon.com/tags/databases/</loc>
+    <loc>https://lukeavedon/tags/databases/</loc>
     <lastmod>2022-08-06T18:12:10-04:00</lastmod>
   </url><url>
-    <loc>https://lukeavedon.com/tags/entity-framework/</loc>
+    <loc>https://lukeavedon/tags/entity-framework/</loc>
     <lastmod>2022-08-06T18:12:10-04:00</lastmod>
   </url><url>
-    <loc>https://lukeavedon.com/2022/08/getting-started-with-ef-core-part-2/</loc>
+    <loc>https://lukeavedon/2022/08/getting-started-with-ef-core-part-2/</loc>
     <lastmod>2022-08-06T18:12:10-04:00</lastmod>
   </url><url>
-    <loc>https://lukeavedon.com/tags/</loc>
+    <loc>https://lukeavedon/tags/</loc>
     <lastmod>2022-08-06T18:12:10-04:00</lastmod>
   </url><url>
-    <loc>https://lukeavedon.com/tags/video/</loc>
+    <loc>https://lukeavedon/tags/video/</loc>
     <lastmod>2022-08-06T18:12:10-04:00</lastmod>
   </url><url>
-    <loc>https://lukeavedon.com/2022/08/getting-started-with-ef-core-part-1/</loc>
+    <loc>https://lukeavedon/2022/08/getting-started-with-ef-core-part-1/</loc>
     <lastmod>2022-08-06T18:06:47-04:00</lastmod>
   </url><url>
-    <loc>https://lukeavedon.com/tags/algorithms/</loc>
+    <loc>https://lukeavedon/tags/algorithms/</loc>
     <lastmod>2022-07-07T21:31:38-04:00</lastmod>
   </url><url>
-    <loc>https://lukeavedon.com/tags/c#/</loc>
+    <loc>https://lukeavedon/tags/c#/</loc>
     <lastmod>2022-07-07T21:31:38-04:00</lastmod>
   </url><url>
-    <loc>https://lukeavedon.com/2022/07/introduction-to-classic-sorting-algorithms-part-1-bubble-sort/</loc>
+    <loc>https://lukeavedon/2022/07/introduction-to-classic-sorting-algorithms-part-1-bubble-sort/</loc>
     <lastmod>2022-07-07T21:31:38-04:00</lastmod>
   </url><url>
-    <loc>https://lukeavedon.com/tags/sorting/</loc>
+    <loc>https://lukeavedon/tags/sorting/</loc>
     <lastmod>2022-07-07T21:31:38-04:00</lastmod>
   </url><url>
-    <loc>https://lukeavedon.com/categories/</loc>
+    <loc>https://lukeavedon/categories/</loc>
   </url>
 </urlset>
