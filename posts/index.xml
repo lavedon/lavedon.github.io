@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Luke Avedon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 08 Aug 2022 18:46:41 -0400</lastBuildDate><atom:link href="http://lavedon.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 12 Aug 2022 23:08:58 -0400</lastBuildDate><atom:link href="http://lavedon.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Simple ADO.NET Logging with Reflection</title>
+      <link>http://lavedon.github.io/2022/08/simple-ado.net-logging-with-reflection/</link>
+      <pubDate>Fri, 12 Aug 2022 23:08:58 -0400</pubDate>
+      
+      <guid>http://lavedon.github.io/2022/08/simple-ado.net-logging-with-reflection/</guid>
+      <description>When working with an app that does not have much of a logger, or in an environment where one is not allowed to install their own nu-get packages to set up a proper logger.
+I found this simple logger to be an ideal way to watch what SQL the application is sending over to SQL Server when working with ADO.NET. It outputs what stored procedures are being called, what the name of those procedures, what parameters are being passed (with what values), etc.</description>
+    </item>
+    
     <item>
       <title>Leetcode 20: Valid Parentheses</title>
       <link>http://lavedon.github.io/2022/08/leetcode-20-valid-parentheses/</link>
