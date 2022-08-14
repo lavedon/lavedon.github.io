@@ -13,12 +13,12 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Simple ADO.NET Logging with Reflection"/>
-<meta name="twitter:description" content="When working with an app that does not have much of a logger, or in an environment where one is not allowed to install their own nu-get packages to set up a proper logger.
-I found this simple logger to be an ideal way to watch what SQL the application is sending over to SQL Server when working with ADO.NET. It outputs what stored procedures are being called, what the name of those procedures, what parameters are being passed (with what values), etc."/>
+<meta name="twitter:description" content="I made this simple logger.
+I found this snippet of code to be an ideal way to watch what SQL an ADO.NET application sends over to SQL Server. This code displays what stored procedures are being called, what the name of those procedures are, and what parameters are being passed (with what values), etc. It is a fast way to see everything going across the database connection in the Visual Studio output window."/>
 
     <meta property="og:title" content="Simple ADO.NET Logging with Reflection" />
-<meta property="og:description" content="When working with an app that does not have much of a logger, or in an environment where one is not allowed to install their own nu-get packages to set up a proper logger.
-I found this simple logger to be an ideal way to watch what SQL the application is sending over to SQL Server when working with ADO.NET. It outputs what stored procedures are being called, what the name of those procedures, what parameters are being passed (with what values), etc." />
+<meta property="og:description" content="I made this simple logger.
+I found this snippet of code to be an ideal way to watch what SQL an ADO.NET application sends over to SQL Server. This code displays what stored procedures are being called, what the name of those procedures are, and what parameters are being passed (with what values), etc. It is a fast way to see everything going across the database connection in the Visual Studio output window." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://lavedon.github.io/2022/08/simple-adonet-logging-with-reflection/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-08-12T23:08:58-04:00" />
@@ -73,23 +73,23 @@ I found this simple logger to be an ideal way to watch what SQL the application 
       </div>
     </header>
     <div class="post-content">
-      <p>When working with an app that does not have much of a logger, or in an environment where one
-is not allowed to install their own nu-get packages to set up a proper logger.</p>
-<p>I found this simple logger to be an ideal way to watch what SQL the application is sending over to SQL Server when working with ADO.NET.  It outputs what stored procedures are being called, what the name of those procedures, what parameters are being passed (with what values), etc.</p>
-<p>It provides a fast way to look at everything going across the database connection in the Visual Studio output window.</p>
-<p>First import the diagnostics library and reflection library:</p>
+      <p>I made this simple logger.</p>
+<p>I found this snippet of code to be an ideal way to watch what SQL an ADO.NET application sends over to SQL Server.  This code displays what stored procedures are being called, what the name of those procedures are, and what parameters are being passed (with what values), etc.
+It is a fast way to see everything going across the database connection in the Visual Studio output window.  It has been especially helpful when it would not be appropriate to install a proper logger (i.e. when I am not permitted to install new nu-get packages).</p>
+<p>Here is how use it.</p>
+<p>First import the diagnostics library and the reflection assemblies:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Diagnostics;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Reflection;
 </span></span></code></pre></div><p>below&hellip;.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>results.Load(sqlCommand.ExecuteReader());
-</span></span></code></pre></div><p>And above where the connection to the database is closed&hellip;</p>
+</span></span></code></pre></div><p>and above where the connection to the database is closed&hellip;</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#75715e">//close the connection</span>
 </span></span><span style="display:flex;"><span>connection.Close();
 </span></span></code></pre></div><p>Place this code:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>MethodBase method = MethodBase.GetCurrentMethod();
 </span></span><span style="display:flex;"><span>logQuery(sqlCommand, method);
 </span></span></code></pre></div><p>The above code simply uses reflection to grab the current method.  It &lsquo;saves&rsquo; the method as a MethodBase object.</p>
-<p>Next, it executes the <code>loqQuery</code> method we are about to create.  We pass the sqlCommand object, which contains all sorts of neat things, and the method we just grabbed.</p>
+<p>Next, it executes the <code>loqQuery</code> method.  We will create <code>loqQuery</code> below.  We pass the sqlCommand object, which contains all sorts of neat things, and we pass the method we just grabbed.</p>
 <p>Here is the <code>loqQuery</code> method:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> logQuery(SqlCommand sqlCommand, MethodBase callingMethod)
 </span></span><span style="display:flex;"><span>{

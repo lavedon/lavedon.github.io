@@ -6,15 +6,68 @@
     <description>Recent content in Posts on Luke Avedon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 12 Aug 2022 23:08:58 -0400</lastBuildDate><atom:link href="http://lavedon.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 14 Aug 2022 15:57:49 -0400</lastBuildDate><atom:link href="http://lavedon.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My Terrible Blazor WASM App</title>
+      <link>http://lavedon.github.io/2022/08/my-terrible-blazor-wasm-app/</link>
+      <pubDate>Sun, 14 Aug 2022 15:57:49 -0400</pubDate>
+      
+      <guid>http://lavedon.github.io/2022/08/my-terrible-blazor-wasm-app/</guid>
+      <description>Check it out: ![[https://lukebug.com]]</description>
+    </item>
+    
+    <item>
+      <title>Fun Porting a Console App to Mac OSX</title>
+      <link>http://lavedon.github.io/2022/08/fun-porting-a-console-app-to-mac-osx/</link>
+      <pubDate>Sat, 13 Aug 2022 17:30:55 -0400</pubDate>
+      
+      <guid>http://lavedon.github.io/2022/08/fun-porting-a-console-app-to-mac-osx/</guid>
+      <description>All I wanted to do was give my console app to a non-technical user.
+I had made a command line based app for a college student. It hooked up to a new, not fully released API from the Oxford dictionary. The API, Oxford Researcher, was only available to universities at the time. You type in a word with all sorts of options. The application than spits back information like what regions of the world the word came from, quotes based on the first usage of the word.</description>
+    </item>
+    
+    <item>
+      <title>10 Quick Steps to Debug AngularJs in Console</title>
+      <link>http://lavedon.github.io/2022/08/10-quick-steps-to-debug-angularjs-in-console/</link>
+      <pubDate>Sat, 13 Aug 2022 17:16:37 -0400</pubDate>
+      
+      <guid>http://lavedon.github.io/2022/08/10-quick-steps-to-debug-angularjs-in-console/</guid>
+      <description>If you are debugging a legacy AngularJS app, and want to be able to noodle around the DOM and debug all those scopes ($scope) without installing an old AngularJS Chrome extensions (like Ng-Inspect) &amp;ndash; you can do it in the browser console.
+Here is a condensed cheat sheet to get you started:
+Make sure JQuery is being used and currently loaded.
+If you type $() into the browser console, without error, JQuery is there.</description>
+    </item>
+    
+    <item>
+      <title>Simple Order By Condition</title>
+      <link>http://lavedon.github.io/2022/08/simple-order-by-condition/</link>
+      <pubDate>Sat, 13 Aug 2022 15:31:21 -0400</pubDate>
+      
+      <guid>http://lavedon.github.io/2022/08/simple-order-by-condition/</guid>
+      <description>Sometimes when the user wants to sort results in a view, it makes sense to do all of that sorting back in the database. The C# controller passes what column to sort by and what direction to sort by to the SQL Sever stored procedure, when it executes the command with ADO.NET.
+Conditional sorting is easy to do in modern versions of SQL Server.
+However, I have seen these sorts performed by PARTITION BY or ROW_NUMBER and other windowing functions.</description>
+    </item>
+    
+    <item>
+      <title>Helpful Sql Snippets for Investigating a New Project</title>
+      <link>http://lavedon.github.io/2022/08/helpful-sql-snippets-for-investigating-a-new-project/</link>
+      <pubDate>Sat, 13 Aug 2022 10:43:03 -0400</pubDate>
+      
+      <guid>http://lavedon.github.io/2022/08/helpful-sql-snippets-for-investigating-a-new-project/</guid>
+      <description>When assigned a new full stack task on a new project, I usually have no clue what table or even what database holds the data I am tasked to work with.
+But where is the data the user is asking for? If you the database is not clearly listed, these snippets have helped me find what I need.
+First before I do anything crazy like search the entire database for a value, I will search the database for a column with a relevant name.</description>
+    </item>
+    
     <item>
       <title>Simple ADO.NET Logging with Reflection</title>
       <link>http://lavedon.github.io/2022/08/simple-adonet-logging-with-reflection/</link>
       <pubDate>Fri, 12 Aug 2022 23:08:58 -0400</pubDate>
       
       <guid>http://lavedon.github.io/2022/08/simple-adonet-logging-with-reflection/</guid>
-      <description>When working with an app that does not have much of a logger, or in an environment where one is not allowed to install their own nu-get packages to set up a proper logger.
-I found this simple logger to be an ideal way to watch what SQL the application is sending over to SQL Server when working with ADO.NET. It outputs what stored procedures are being called, what the name of those procedures, what parameters are being passed (with what values), etc.</description>
+      <description>I made this simple logger.
+I found this snippet of code to be an ideal way to watch what SQL an ADO.NET application sends over to SQL Server. This code displays what stored procedures are being called, what the name of those procedures are, and what parameters are being passed (with what values), etc. It is a fast way to see everything going across the database connection in the Visual Studio output window.</description>
     </item>
     
     <item>

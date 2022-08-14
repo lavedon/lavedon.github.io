@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Helpful Sql Snippets for Investigating a New Project // Luke Avedon</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.101.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Luke Avedon" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://lukeavedon.com/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Helpful Sql Snippets for Investigating a New Project"/>
+<meta name="twitter:description" content="When assigned a new full stack task on a new project, I usually have no clue what table or even what database holds the data I am tasked to work with.
+But where is the data the user is asking for? If you the database is not clearly listed, these snippets have helped me find what I need.
+First before I do anything crazy like search the entire database for a value, I will search the database for a column with a relevant name."/>
+
+    <meta property="og:title" content="Helpful Sql Snippets for Investigating a New Project" />
+<meta property="og:description" content="When assigned a new full stack task on a new project, I usually have no clue what table or even what database holds the data I am tasked to work with.
+But where is the data the user is asking for? If you the database is not clearly listed, these snippets have helped me find what I need.
+First before I do anything crazy like search the entire database for a value, I will search the database for a column with a relevant name." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://lavedon.github.io/2022/08/helpful-sql-snippets-for-investigating-a-new-project/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-13T10:43:03-04:00" />
+<meta property="article:modified_time" content="2022-08-13T10:43:03-04:00" />
+
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://lavedon.github.io/"><img class="app-header-avatar" src="/headshot.jpg" alt="Luke Avedon" /></a>
+      <h1>Luke Avedon</h1>
+      <p> </p>
+      <div class="app-header-social">
+        
+          <a href="http://github.com/lavedon" target="_blank" rel="noreferrer noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>My Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="http://www.linkedin.com/in/lukeavedon/" target="_blank" rel="noreferrer noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>My LinkedIn</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Helpful Sql Snippets for Investigating a New Project</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Aug 13, 2022
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>When assigned a new full stack task on a new project, I usually have no clue what table or even what database holds the data I am tasked to work with.</p>
+<p>But where is the data the user is asking for?  If you the database is not clearly listed, these snippets have helped me find what I need.</p>
+<p>First before I do anything crazy like search the entire database for a value, I will search the database for a column with a relevant name.  If I am looking for sales figures I want to find all tables where a column has the word sales in it.</p>
+<h2 id="find-a-table-based-on-column-name-containing-a-string">Find a Table Based on Column Name Containing a string</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>USE MyDbName
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GO</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> TABLE_SCHEMA, <span style="color:#66d9ef">TABLE_NAME</span>, <span style="color:#66d9ef">COLUMN_NAME</span> <span style="color:#66d9ef">FROM</span> INFORMATION_SCHEMA.COLUMNS
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">COLUMN_NAME</span> <span style="color:#66d9ef">like</span> <span style="color:#e6db74">&#39;%Sales%&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#66d9ef">TABLE_NAME</span>;
+</span></span></code></pre></div><p>Now that I have found my table, I might need to start writing a new stored procedure or function that performs various operations on the data.</p>
+<p>Now that I have the name of the table perhaps I need the technical <code>object_id</code> of the table for various operations.</p>
+<p>Say by using the above snippet, I located the table I needed via searching for columns.  The table I need is called <code>SalesHistory</code>.</p>
+<h2 id="get-the-object-id-for-a-table">Get the Object ID for a Table</h2>
+<p>I will now grab the <code>object_id</code> with the below snippet:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> [NAME],OBJECT_ID,[<span style="color:#66d9ef">TYPE</span>] 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> SYS.OBJECTS 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> [NAME] <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%saleshistory%&#39;</span>
+</span></span></code></pre></div><p>Next, I will check what views have been created.  There may be some views that are relevant to the project.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>USE MyDb
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GO</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>  TABLE_SCHEMA,
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">TABLE_NAME</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> INFORMATION_SCHEMA.VIEWS;
+</span></span></code></pre></div><h1 id="get-a-list-of-indexes-and-catalogs-connected-to-a-tables-object_id">Get a list of indexes and catalogs connected to a table&rsquo;s object_id</h1>
+<p>Say I am working with full-text search. One thing I may need to do, now that I have the object id, is find out what index is connected to the table, and what catalog that index is inside.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">SCHEMA_NAME</span>(t.schema_id) <span style="color:#66d9ef">AS</span> SchemaName,
+</span></span><span style="display:flex;"><span>    t.name <span style="color:#66d9ef">AS</span> TableName, 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">c</span>.name <span style="color:#66d9ef">AS</span> FTCatalogName ,
+</span></span><span style="display:flex;"><span>    f.name <span style="color:#66d9ef">AS</span> FileGroupName,
+</span></span><span style="display:flex;"><span>    i.name <span style="color:#66d9ef">AS</span> UniqueIdxName,
+</span></span><span style="display:flex;"><span>    cl.name <span style="color:#66d9ef">AS</span> ColumnName
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> 
+</span></span><span style="display:flex;"><span>    sys.tables t 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> 
+</span></span><span style="display:flex;"><span>    sys.fulltext_indexes fi 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> 
+</span></span><span style="display:flex;"><span>    t.[object_id] <span style="color:#f92672">=</span> fi.[object_id] 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> 
+</span></span><span style="display:flex;"><span>    sys.fulltext_index_columns ic
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> 
+</span></span><span style="display:flex;"><span>    ic.[object_id] <span style="color:#f92672">=</span> t.[object_id]
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span>
+</span></span><span style="display:flex;"><span>    sys.columns cl
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> 
+</span></span><span style="display:flex;"><span>    ic.column_id <span style="color:#f92672">=</span> cl.column_id
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">AND</span> ic.[object_id] <span style="color:#f92672">=</span> cl.[object_id]
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> 
+</span></span><span style="display:flex;"><span>    sys.fulltext_catalogs <span style="color:#66d9ef">c</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> 
+</span></span><span style="display:flex;"><span>    fi.fulltext_catalog_id <span style="color:#f92672">=</span> <span style="color:#66d9ef">c</span>.fulltext_catalog_id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> 
+</span></span><span style="display:flex;"><span>    sys.filegroups f
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span>
+</span></span><span style="display:flex;"><span>    fi.data_space_id <span style="color:#f92672">=</span> f.data_space_id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> 
+</span></span><span style="display:flex;"><span>    sys.indexes i
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> 
+</span></span><span style="display:flex;"><span>    fi.unique_index_id <span style="color:#f92672">=</span> i.index_id
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">AND</span> fi.[object_id] <span style="color:#f92672">=</span> i.[object_id];
+</span></span></code></pre></div><p>If it turns out I am barking up the wrong tree and I need to get a list of all full text catalogs, I can simply search SQL Servers index of full text catalogs.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> sys.fulltext_catalogs
+</span></span></code></pre></div><h1 id="checking-what-column-is-the-primary-key">Checking what column is the Primary Key</h1>
+<p>Often I need to check which column is the primary key for the database. I can do that by calling the built in <code>sp_pkeys</code> stored procedure.</p>
+<p>If we know the type of the table</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>USE MyDatabase
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GO</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">EXEC</span> sp_pkeys <span style="color:#f92672">@</span><span style="color:#66d9ef">table_name</span> <span style="color:#f92672">=</span> SalesHistory, <span style="color:#f92672">@</span>table_owner <span style="color:#f92672">=</span> MyDb;
+</span></span></code></pre></div><p>It will output something like:</p>
+<p>Change the following:</p>
+<table>
+<thead>
+<tr>
+<th>TABLE_QUALIFIER</th>
+<th>TABLE_OWNER</th>
+<th>TABLE_NAME</th>
+<th>COLUMN_NAME</th>
+<th>KEY_SEQ</th>
+<th>PK_NAME</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MyDatabase</td>
+<td>MyDb</td>
+<td>SalesHistory</td>
+<td>SalesId</td>
+<td>1</td>
+<td>PK_SALESId</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "myblog-johnzdzlvf" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

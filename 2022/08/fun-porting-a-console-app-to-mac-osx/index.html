@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Fun Porting a Console App to Mac OSX // Luke Avedon</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.101.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Luke Avedon" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://lukeavedon.com/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Fun Porting a Console App to Mac OSX"/>
+<meta name="twitter:description" content="All I wanted to do was give my console app to a non-technical user.
+I had made a command line based app for a college student. It hooked up to a new, not fully released API from the Oxford dictionary. The API, Oxford Researcher, was only available to universities at the time. You type in a word with all sorts of options. The application than spits back information like what regions of the world the word came from, quotes based on the first usage of the word."/>
+
+    <meta property="og:title" content="Fun Porting a Console App to Mac OSX" />
+<meta property="og:description" content="All I wanted to do was give my console app to a non-technical user.
+I had made a command line based app for a college student. It hooked up to a new, not fully released API from the Oxford dictionary. The API, Oxford Researcher, was only available to universities at the time. You type in a word with all sorts of options. The application than spits back information like what regions of the world the word came from, quotes based on the first usage of the word." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://lavedon.github.io/2022/08/fun-porting-a-console-app-to-mac-osx/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-13T17:30:55-04:00" />
+<meta property="article:modified_time" content="2022-08-13T17:30:55-04:00" />
+
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="http://lavedon.github.io/"><img class="app-header-avatar" src="/headshot.jpg" alt="Luke Avedon" /></a>
+      <h1>Luke Avedon</h1>
+      <p> </p>
+      <div class="app-header-social">
+        
+          <a href="http://github.com/lavedon" target="_blank" rel="noreferrer noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>My Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="http://www.linkedin.com/in/lukeavedon/" target="_blank" rel="noreferrer noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>My LinkedIn</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Fun Porting a Console App to Mac OSX</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Aug 13, 2022
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          7 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>All I wanted to do was give my console app to a non-technical user.</p>
+<p>I had made a command line based app for a college student.  It hooked up to a new, not fully released API from the Oxford dictionary.  The API, Oxford Researcher, was only available to universities at the time.  You type in a word with all sorts of options.  The application than spits back information like what regions of the world the word came from, quotes based on the first usage of the word.  It used the System.CommandLine library and took an enormous amount of parameters and options.</p>
+<p>I knew the student I was building it with wanted to use the app on Mac.  Part of why I picked .NET 5 at the time was the easy cross platform support.  However, with my limited intelligence porting to Mac was not as easy as I hoped.  I even ended up renting a virtual mac from MacInCloud. It was terrible.</p>
+<p>Here is how little I knew about mac.  I did not realize that MacOSX does not even use .exe files, or any extension like that.  That is how naive I was.</p>
+<p>The .exe file suffix is just a hold over from MS-DOS days.  .EXE replaced the self-contained executable .COM programs.  While Linux uses &lsquo;ELF&rsquo;  macOSX uses the Mach-O format for executables.   Further, what makes a file executable on Mac is if certain bits in the file flag the file as executable.  This technique was stolen from Unix.</p>
+<p>So, obviously, we can not just send over an .exe.  Many different files can be flagged as executable on mac, but I found Mac user&rsquo;s do not like to receive anything other than a dmg file.</p>
+<p>Here is what I pinned my hopes on: simply publishishg a self-contained executable to Mac with <code>dotnet publish</code>.  After that, I was going to use <code>hditul</code> - on mac - to create the DMG file. Voila!</p>
+<p>DMG files (Apple Disk Image File) are just macOS disk image files.  They operate similar to ISO files on Windows.  You double click the .dmg file and it mounts a disk image on the desktop.  To finish your installation, you typically drag the app from the mounted disk image to your Applications folder.  We don&rsquo;t want to run the app rom the .dmg, but allow the user to drag it to their applications folder.  Technically, the preferred term is <code>attach</code> and not <code>mount</code> as this is disk image and not a physical disk.</p>
+<p>I was surprised to find out that I could not just open Visual Studio for Mac and hit publish.</p>
+<p>Visual Studio for Mac doesn&rsquo;t provide options for publishing to Mac (How strange). Instead you to have to use the CLI.  Which I prefer anyway, as it makes me feel smarter than I am.</p>
+<p>Here is what I ended up doing:</p>
+<p>First we publish our project for Mac.  We can only run our app on Mac OSX higher than macOS 10.12 Sierra.  Although, Sierra is no longer supported <a href="https://docs.microsoft.com/en-us/dotnet/core/install/macos">https://docs.microsoft.com/en-us/dotnet/core/install/macos</a>.</p>
+<p>Although we are going to create a DMG file (disk image) &ndash; we are going to publish our project as a single file.  We are also going to make the app &lsquo;self-contained&rsquo; so that the user doesn&rsquo;t have to install the .NET framework.  It is important to keep in mind that just because an app is self-contained &ndash; and includes all required files.  The native dependencies of .NET must be present on the system before the app runs.  Sooooooooooo dissapointing.</p>
+<p>(We are not going to bother trimming the self-contained app - as we can now do in .NET 6)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dotnet publish -c Release -r osx-x64 --self-contained true /p:PublishSingleFile<span style="color:#f92672">=</span>true
+</span></span></code></pre></div><p>Now if we go to the release folder:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd bin/Release/net5.0/
+</span></span></code></pre></div><p>Not go into the osx-x64 folder:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd osx-x64
+</span></span></code></pre></div><p>Notice we have all of the files.  What!!
+<img src="/mac/mac-1.png" alt="[mac-1]"></p>
+<p><img src="/mac/mac-2.png" alt="[mac-2]"></p>
+<p>Even though we specifically specified a single file, <code>dotnet publish</code> spits out a million files.</p>
+<p>The single file option creates all the files normally, that you would need if you did not specify single file, then (in addition to all those crazy files) it creates a single file.</p>
+<p>In .NET Core 3.x publishing a single file produced exactly one file.  If you ran that file - the app was extracted to a folder and run from there.  I am using .NET 5 &ndash; managed DLLs are now included with the app.  Those .dll files are extracted and loaded in memory so the app will work.  This way, on our target platform, we don&rsquo;t need to create a folder, extract the files to that folder, etc. It all happens in memory.
+If one wants to skip these files you can include the property</p>
+<pre tabindex="0"><code>IncludeNativeLibrariesForSelfExtract 
+</code></pre><p>to <code>true</code></p>
+<p>If I add <code>IncludeNativeLibraryesForSelfExtract</code> to my <code>*.csproj</code> file on mac
+<img src="/mac/mac-3.png" alt="[mac-3]">
+becomes:
+However, we can skip modifying the <code>*.csproj</code> file:
+and just add</p>
+<pre tabindex="0"><code>-p:IncludeAllContentForSelfExtract=true
+</code></pre><p>to the end of dotnet publish</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dotnet publish -c Release -r osx-x64 --self-contained true /p:PublishSingleFile<span style="color:#f92672">=</span>true /p:IncludeAllContentForSelfExtract<span style="color:#f92672">=</span>true
+</span></span></code></pre></div><p>I get the following output:</p>
+<p>If we are using .NET 6 the runtime is pre-linked into the bundle on all platforms.</p>
+<p>Since our app is called &ldquo;hello-test&rdquo; the actual file we need is &ldquo;hello-test&rdquo;
+<img src="/mac/mac-4.png" alt="[mac-4]">
+<img src="/mac/mac-5.png" alt="[mac-5]"></p>
+<p>Double clicking this file does indeed work:
+<img src="/mac/mac-6.png" alt="[mac-6]">
+<img src="/mac/mac-7.png" alt="[mac-7]"></p>
+<p>What we want is the reduced mess inside the publish folder:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls -ld -- */
+</span></span></code></pre></div><p>Ignore the ref folder.</p>
+<p>Inside the ref folder are &ldquo;Reference Assemblies&rdquo; which <code>MsBuild</code> uses to speed up the build process.   It is only helpful if your project is referenced by other projects so whatevs.</p>
+<p>Back to the publish folder.</p>
+<p><img src="/mac/mac-8.png" alt="[mac-8]"></p>
+<p>I thought you told me this was going to be a single file?</p>
+<p>Double clicking hello-test will run the app
+<img src="/mac/mac-9.png" alt="[mac-9]"></p>
+<p>Note - the app requires everything in this folder.  (It does not require the debugging .pdb file The promise of a true single file app was a lie. A filthy lie.</p>
+<p>The dynamic libraries (.dylib) can be complicated to distribute.  We have .NET dependencies that will only compile as dylibs.
+<img src="/mac/mac-10.png" alt="[mac-10]">
+Trying to fun &ldquo;hello-test&rdquo; by itself - does not work.</p>
+<p>As on Mac apps are actually <code>bundles</code> of files.  They are entire folders that look like a single file executable to the user.  The nice thing about this is that the user drags around the app and everything is included at all time (as an entire folder of all dependencies are being moved with the executable at all times).</p>
+<p>So we want to turn our publish folder into a bundle is to add the <em>.app</em> extension to the folder.  When the user clicks the our folder errr now app - it will run the executable file.
+Right click &ndash;&gt; Rename
+Type .app at the end
+Click &ldquo;Add&rdquo;
+<img src="/mac/mac-11.png" alt="[mac-11]"></p>
+<p>Notice our attractive folder icon has been replaced with a hideous, threatening, ghost-busters esq icon:
+<img src="/mac/mac-12.png" alt="[mac-12]">
+<img src="/mac/mac-13.png" alt="[mac-13]"></p>
+<p>Alas, we can not open the application &ldquo;publish&rdquo; because it may be damaged or incomplete.
+<img src="/mac/mac-14.png" alt="[mac-14]"></p>
+<p>It is hilarious that a hello-world app on .NET 5 is 63.5 megabytes! I guess that is because we included all the framework stuff.</p>
+<p><img src="/mac/mac-15.png" alt="[mac-15]"></p>
+<p>Trying to open the file in terminal we get more information on the problem:</p>
+<pre tabindex="0"><code>&#34;KLSNoExecutableErr: The executable is missing&#34;
+</code></pre><p>First we are going to create a dmg file using <code>hdiutil</code>.  <code>hdiutil</code> uses the DiskImage framework to manipulate disk images.</p>
+<p>To get my more complex console app to run I had to make sure I changed hard-coded folder path strings in the <code>\</code> windows way.
+i.e., replacing this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>StreamReader reader = <span style="color:#66d9ef">new</span> StreamReader(<span style="color:#e6db74">&#34;.\\keys.txt&#34;</span>);
+</span></span></code></pre></div><p>with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> keysFilePath = Path.Combine(Environment.CurrentDirectory, <span style="color:#e6db74">&#34;keys.txt&#34;</span>);
+</span></span><span style="display:flex;"><span>StreamReader reader = <span style="color:#66d9ef">new</span> StreamReader(keysFilePath);
+</span></span></code></pre></div><p>For example I commented out all my logging set up code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#75715e">// Logging disabled for mac osx</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            string directoryPath = string.Concat(Environment.CurrentDirectory, &#34;\\logs&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            try
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                // Determine whether the directory exists
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                if (Directory.Exists(directoryPath))
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                    Trace.WriteLine(&#34;The logs path already exists.&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                else
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                    // Try to create the directory
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                    DirectoryInfo di = Directory.CreateDirectory(directoryPath);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                string fullPath = string.Concat(Environment.CurrentDirectory, $&#34;\\logs\\Log_OxfordApplication_{DateTime.Now.ToString(&#34;yyyyMMdd-HHmm&#34;)}.txt&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                Trace.WriteLine(&#34;Path is {0}&#34;, fullPath);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                /*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                TextWriterTraceListener tr1 = new TextWriterTraceListener(System.Console.Out);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                Trace.Listeners.Add(tr1);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                TextWriterTraceListener tr2 = new TextWriterTraceListener(System.IO.File.CreateText(fullPath));
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                Trace.Listeners.Add(tr2);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            catch (Exception e)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">                xConsole.WriteLine($&#34;The process failed: {e.ToString()}&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            finally { }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            Trace.WriteLine(&#34;Leaving Main method.&#34;);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            Trace.Flush();
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">            */</span>
+</span></span></code></pre></div><p>Building on <code>Windows</code> and sending the value to <code>Mac OSX</code> does not work.</p>
+<h2 id="i-was-too-stupid-to-realize-i-have-to-move-my-keystxt-file-to-usersadmin">I was too stupid to realize I have to move my keys.txt file to users/admin/</h2>
+<p>The application required private keys which were used to access the API.  Forgetting to load the keys into the MAC admin area - as opposed to just keeping them relative to the path of the app &ndash; as I had on Windows &ndash; created all sorts of problems.</p>
+<p>Copy keys.txt to Users/Admin/</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mv keys.txt /users/admin/
+</span></span></code></pre></div><h1 id="turning-executable-into-a-document">Turning Executable into a document</h1>
+<p>I was having the problem that as soon as I uploaded my Unix Executable to share via Google Drive it was being changed to a document.  This has to do with permission issues.  The trick is to first zip the file, that way no email or document sharing program will mess with the permissions.</p>
+<p>After all that, it finally worked.</p>
+
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "myblog-johnzdzlvf" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
