@@ -13,7 +13,7 @@
       <pubDate>Sun, 14 Aug 2022 15:57:49 -0400</pubDate>
       
       <guid>http://lavedon.github.io/2022/08/my-terrible-blazor-wasm-app/</guid>
-      <description>Check it out: ![[https://lukebug.com]]</description>
+      <description>Check it out: <a href="https://lukebug.com/">https://lukebug.com/</a></description>
     </item>
     
     <item>
@@ -39,7 +39,7 @@ If you type $() into the browser console, without error, JQuery is there.</descr
     </item>
     
     <item>
-      <title>Simple Order By Condition</title>
+      <title>Simpler Conditional ORDER BY in T-SQL</title>
       <link>http://lavedon.github.io/2022/08/simple-order-by-condition/</link>
       <pubDate>Sat, 13 Aug 2022 15:31:21 -0400</pubDate>
       
