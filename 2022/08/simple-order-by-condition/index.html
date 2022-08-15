@@ -100,7 +100,7 @@ However, I have seen these sorts performed by PARTITION BY or ROW_NUMBER and oth
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>SortDirection <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ASC&#39;</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">END</span>
 </span></span><span style="display:flex;"><span>...
-</span></span><span style="display:flex;"><span><span style="color:#75715e">--Get Users Along with Contract Status
+</span></span><span style="display:flex;"><span><span style="color:#75715e">--Get Salespeople Details
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span>
 </span></span><span style="display:flex;"><span>	t.UserId,
 </span></span><span style="display:flex;"><span>	t.FirstName,
@@ -117,7 +117,6 @@ However, I have seen these sorts performed by PARTITION BY or ROW_NUMBER and oth
 </span></span><span style="display:flex;"><span>		u.LastName,
 </span></span><span style="display:flex;"><span>		u.EmailAddress,
 </span></span><span style="display:flex;"><span>		u.EmployeeNumber,
-</span></span><span style="display:flex;"><span>		u.EducationTypeId,
 </span></span><span style="display:flex;"><span>		r.RoleTypeId,
 </span></span><span style="display:flex;"><span>		u.StartDate,
 </span></span><span style="display:flex;"><span>		u.EndDate,
