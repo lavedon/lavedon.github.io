@@ -6,14 +6,38 @@
     <description>Recent content in Posts on Luke Avedon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 14 Aug 2022 15:57:49 -0400</lastBuildDate><atom:link href="http://lavedon.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Aug 2022 22:17:36 -0400</lastBuildDate><atom:link href="http://lavedon.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Creating a Service in AngularJS</title>
+      <link>http://lavedon.github.io/2022/08/creating-a-service-in-angularjs/</link>
+      <pubDate>Mon, 15 Aug 2022 22:17:36 -0400</pubDate>
+      
+      <guid>http://lavedon.github.io/2022/08/creating-a-service-in-angularjs/</guid>
+      <description>One of the most important objects we can use in AngularJS is a Service. Just like directives and filters, we create a service with a factory method.
+This is an example of a service:
+(function() { var customersService = function () { var customers = [ ... ];	this.getCustomers = function () { return customers; }; }; angular.module(&amp;#39;customersApp&amp;#39;) .service(&amp;#39;customersService&amp;#39;, customersService) }()); Here is a step-by-step recipe for creating your first service:</description>
+    </item>
+    
+    <item>
+      <title>Hooking Up Jasmine to a Legacy AngularJS App</title>
+      <link>http://lavedon.github.io/2022/08/hooking-up-jasmine-to-a-legacy-angularjs-app/</link>
+      <pubDate>Mon, 15 Aug 2022 21:27:07 -0400</pubDate>
+      
+      <guid>http://lavedon.github.io/2022/08/hooking-up-jasmine-to-a-legacy-angularjs-app/</guid>
+      <description>Have an old AngularJS app that would benefit from unit tests?
+Here is a step by step recipe for getting started unit testing with the classic framework &amp;lsquo;Jasmine.&amp;rsquo;
+Forget Node, we don&amp;rsquo;t have to install anything per se. All we do is hook up some JavaScript files and we are Unit testing away.
+Download the Jasmine stand alone project. https://github.com/jasmine/jasmine/releases 2. Create a folder to place the Jasmine files.
+mkdir Jasmine &amp;ldquo;Unzip&amp;rdquo; and open the SpecRunner.</description>
+    </item>
+    
     <item>
       <title>My Terrible Blazor WASM App</title>
       <link>http://lavedon.github.io/2022/08/my-terrible-blazor-wasm-app/</link>
       <pubDate>Sun, 14 Aug 2022 15:57:49 -0400</pubDate>
       
       <guid>http://lavedon.github.io/2022/08/my-terrible-blazor-wasm-app/</guid>
-      <description>Check it out: <a href="https://lukebug.com/">https://lukebug.com/</a></description>
+      <description>Check it out: ![[https://lukebug.com]]</description>
     </item>
     
     <item>
@@ -39,7 +63,7 @@ If you type $() into the browser console, without error, JQuery is there.</descr
     </item>
     
     <item>
-      <title>Simpler Conditional ORDER BY in T-SQL</title>
+      <title>Simple Order By Condition</title>
       <link>http://lavedon.github.io/2022/08/simple-order-by-condition/</link>
       <pubDate>Sat, 13 Aug 2022 15:31:21 -0400</pubDate>
       

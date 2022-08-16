@@ -2,13 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://lavedon.github.io/</loc>
-    <lastmod>2022-08-14T15:57:49-04:00</lastmod>
+    <loc>http://lavedon.github.io/2022/08/creating-a-service-in-angularjs/</loc>
+    <lastmod>2022-08-15T22:17:36-04:00</lastmod>
   </url><url>
-    <loc>http://lavedon.github.io/2022/08/my-terrible-blazor-wasm-app/</loc>
-    <lastmod>2022-08-14T15:57:49-04:00</lastmod>
+    <loc>http://lavedon.github.io/</loc>
+    <lastmod>2022-08-15T22:17:36-04:00</lastmod>
   </url><url>
     <loc>http://lavedon.github.io/posts/</loc>
+    <lastmod>2022-08-15T22:17:36-04:00</lastmod>
+  </url><url>
+    <loc>http://lavedon.github.io/2022/08/hooking-up-jasmine-to-a-legacy-angularjs-app/</loc>
+    <lastmod>2022-08-15T21:27:07-04:00</lastmod>
+  </url><url>
+    <loc>http://lavedon.github.io/2022/08/my-terrible-blazor-wasm-app/</loc>
     <lastmod>2022-08-14T15:57:49-04:00</lastmod>
   </url><url>
     <loc>http://lavedon.github.io/2022/08/fun-porting-a-console-app-to-mac-osx/</loc>

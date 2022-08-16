@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>Simpler Conditional ORDER BY in T-SQL // Luke Avedon</title>
+    <title>Simple Order By Condition // Luke Avedon</title>
     <link rel="shortcut icon" href="/favicon.ico" />
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.101.0" />
@@ -12,12 +12,12 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Simpler Conditional ORDER BY in T-SQL"/>
+<meta name="twitter:title" content="Simple Order By Condition"/>
 <meta name="twitter:description" content="Sometimes when the user wants to sort results in a view, it makes sense to do all of that sorting back in the database. The C# controller passes what column to sort by and what direction to sort by to the SQL Sever stored procedure, when it executes the command with ADO.NET.
 Conditional sorting is easy to do in modern versions of SQL Server.
 However, I have seen these sorts performed by PARTITION BY or ROW_NUMBER and other windowing functions."/>
 
-    <meta property="og:title" content="Simpler Conditional ORDER BY in T-SQL" />
+    <meta property="og:title" content="Simple Order By Condition" />
 <meta property="og:description" content="Sometimes when the user wants to sort results in a view, it makes sense to do all of that sorting back in the database. The C# controller passes what column to sort by and what direction to sort by to the SQL Sever stored procedure, when it executes the command with ADO.NET.
 Conditional sorting is easy to do in modern versions of SQL Server.
 However, I have seen these sorts performed by PARTITION BY or ROW_NUMBER and other windowing functions." />
@@ -56,7 +56,7 @@ However, I have seen these sorts performed by PARTITION BY or ROW_NUMBER and oth
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">Simpler Conditional ORDER BY in T-SQL</h1>
+      <h1 class ="post-title">Simple Order By Condition</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
@@ -70,7 +70,7 @@ However, I have seen these sorts performed by PARTITION BY or ROW_NUMBER and oth
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div>
       </div>
     </header>
@@ -100,7 +100,7 @@ However, I have seen these sorts performed by PARTITION BY or ROW_NUMBER and oth
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#66d9ef">SET</span> <span style="color:#f92672">@</span>SortDirection <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ASC&#39;</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">END</span>
 </span></span><span style="display:flex;"><span>...
-</span></span><span style="display:flex;"><span><span style="color:#75715e">--Get Salespeople Details
+</span></span><span style="display:flex;"><span><span style="color:#75715e">--Get Salesperson Details
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">SELECT</span>
 </span></span><span style="display:flex;"><span>	t.UserId,
 </span></span><span style="display:flex;"><span>	t.FirstName,
@@ -159,8 +159,22 @@ You can not apply &lsquo;DESC&rsquo; and &lsquo;ASC&rsquo; ORDER BY this way.</p
 </span></span><span style="display:flex;"><span>,   (<span style="color:#66d9ef">CASE</span> <span style="color:#f92672">@</span>OrderByColumn
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">WHEN</span> <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">THEN</span> EmployeeName
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">END</span>) <span style="color:#66d9ef">ASC</span> 
-</span></span></code></pre></div><p>After all that, I realized, why use ROW_NUMBER() number values at all.
-A simpler solution is to just use pure ORDER BY with CASE statements.</p>
+</span></span></code></pre></div><p>After all that, I realized, why use <code>ROW_NUMBER()</code> number values at all.
+A simpler solution is to just use pure <code>ORDER BY</code> with <code>CASE</code> statements.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> SalesPersonNumber, SalesPersonName, ContractNumber, <span style="color:#66d9ef">SUM</span>(TotalSales) <span style="color:#66d9ef">As</span> TotalSales <span style="color:#66d9ef">FROM</span> <span style="color:#f92672">@</span>ProcessedSalesByEmployee 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> SalespersonNumber, SalesPersonName, ContractNumber  
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> <span style="color:#f92672">@</span>SortByColumn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;SalesPersonNumber&#39;</span> <span style="color:#66d9ef">AND</span> <span style="color:#f92672">@</span>SortDirection <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ASC&#39;</span> <span style="color:#66d9ef">THEN</span> SalesPersonNumber <span style="color:#66d9ef">END</span>) <span style="color:#66d9ef">ASC</span>,
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> <span style="color:#f92672">@</span>SortByColumn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;SalesPersonNumber&#39;</span> <span style="color:#66d9ef">AND</span> <span style="color:#f92672">@</span>SortDirection <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;DESC&#39;</span> <span style="color:#66d9ef">THEN</span> SalesPersonNumber <span style="color:#66d9ef">END</span>) <span style="color:#66d9ef">DESC</span>,
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> <span style="color:#f92672">@</span>SortByColumn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;SalesPersonName&#39;</span> <span style="color:#66d9ef">AND</span> <span style="color:#f92672">@</span>SortDirection <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ASC&#39;</span> <span style="color:#66d9ef">THEN</span> SalesPersonName <span style="color:#66d9ef">END</span>) <span style="color:#66d9ef">ASC</span>,
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> <span style="color:#f92672">@</span>SortByColumn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;SalesPersonName&#39;</span> <span style="color:#66d9ef">AND</span> <span style="color:#f92672">@</span>SortDirection <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;DESC&#39;</span> <span style="color:#66d9ef">THEN</span> SalesPersonName <span style="color:#66d9ef">END</span>) <span style="color:#66d9ef">DESC</span>,
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> <span style="color:#f92672">@</span>SortByColumn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ContractNumber&#39;</span> <span style="color:#66d9ef">AND</span> <span style="color:#f92672">@</span>SortDirection <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ASC&#39;</span> <span style="color:#66d9ef">THEN</span> ContractNumber <span style="color:#66d9ef">END</span>) <span style="color:#66d9ef">ASC</span>,
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> <span style="color:#f92672">@</span>SortByColumn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ContractNumber&#39;</span> <span style="color:#66d9ef">AND</span> <span style="color:#f92672">@</span>SortDirection <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;DESC&#39;</span> <span style="color:#66d9ef">THEN</span> ContractNumber <span style="color:#66d9ef">END</span>) <span style="color:#66d9ef">DESC</span>,
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> <span style="color:#f92672">@</span>SortByColumn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;TotalHours&#39;</span> <span style="color:#66d9ef">AND</span> <span style="color:#f92672">@</span>SortDirection <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ASC&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">SUM</span>(TotalHours) <span style="color:#66d9ef">END</span>) <span style="color:#66d9ef">ASC</span>,
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> <span style="color:#f92672">@</span>SortByColumn <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;TotalHours&#39;</span> <span style="color:#66d9ef">AND</span> <span style="color:#f92672">@</span>SortDirection <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;DESC&#39;</span> <span style="color:#66d9ef">THEN</span> <span style="color:#66d9ef">SUM</span>(TotalHours) <span style="color:#66d9ef">END</span>) <span style="color:#66d9ef">DESC</span>,
+</span></span></code></pre></div><p>Note: <code>TotalHours</code> which has an aggregate function applied, is not listed in GROUP BY.
+All aggregate functions, like SUM(), require a GROUP BY.  We do not include SUM() in the GROUP BY, the GROUP BY tells us how to organize our count.</p>
+<p>Also, notice that <code>ASC</code> and <code>DESC</code> re not included inside the CASE statement.  The entire CASE statement transaction is inside <code>( )</code> and ends with END.  <code>ASC</code> and <code>DESC</code> must be outside the parenthesis.</p>
 
     </div>
     <div class="post-footer">
